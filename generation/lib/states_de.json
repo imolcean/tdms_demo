@@ -1,0 +1,85 @@
+{
+  "_id": "$LibStatesDE",
+  "all": [
+    {
+	  "name": "Baden-Württemberg",
+	  "code": "BW",
+	  "capital": "Stutgart"
+	},
+	{
+	  "name": "Bayern",
+	  "code": "BY",
+	  "capital": "München"
+	},
+	{
+	  "name": "Berlin",
+	  "code": "BE",
+	  "capital": "Berlin"
+	},
+	{
+	  "name": "Brandenburg",
+	  "code": "BB",
+	  "capital": "Potsdam"
+	},
+	{
+	  "name": "Bremen",
+	  "code": "HB",
+	  "capital": "Bremen"
+	},
+	{
+	  "name": "Hamburg",
+	  "code": "HH",
+	  "capital": "Hamburg"
+	},
+	{
+	  "name": "Hessen",
+	  "code": "HE",
+	  "capital": "Wiesbaden"
+	},
+	{
+	  "name": "Mecklenburg-Vorpommern",
+	  "code": "MV",
+	  "capital": "Schwerin"
+	},
+	{
+	  "name": "Niedersachsen",
+	  "code": "NI",
+	  "capital": "Hannover"
+	},
+	{
+	  "name": "Nordrhein-Westfalen",
+	  "code": "NW",
+	  "capital": "Düsseldorf"
+	},
+	{
+	  "name": "Rheinland-Pfalz",
+	  "code": "RP",
+	  "capital": "Mainz"
+	},
+	{
+	  "name": "Saarland",
+	  "code": "SL",
+	  "capital": "Saarbrücken"
+	},
+	{
+	  "name": "Sachsen",
+	  "code": "SN",
+	  "capital": "Dresden"
+	},
+	{
+	  "name": "Sachsen-Anhalt",
+	  "code": "ST",
+	  "capital": "Magdeburg"
+	},
+	{
+	  "name": "Schleswig-Holstein",
+	  "code": "SH",
+	  "capital": "Kiel"
+	},
+	{
+	  "name": "Thüringen",
+	  "code": "TH",
+	  "capital": "Erfurt"
+	}
+  ]
+}

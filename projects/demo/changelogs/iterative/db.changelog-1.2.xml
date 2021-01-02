@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.10.xsd">
+
+	<changeSet id="8" author="your.name">
+        <createTable tableName="Person_Company">
+            <column name="person_id" type="int">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+			<column name="company_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="start_working" type="date">
+				<constraints nullable="false"/>
+			</column>
+            <column name="end_working" type="date"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            constraintName="fk_person_company_person"
+            baseTableName="Person_Company"
+            baseColumnNames="person_id"
+            referencedTableName="Person"
+            referencedColumnNames="id"/>
+			
+		<addForeignKeyConstraint
+            constraintName="fk_person_company_company"
+            baseTableName="Person_Company"
+            baseColumnNames="company_id"
+            referencedTableName="Company"
+            referencedColumnNames="id"/>
+		
+		<sql>
+            INSERT Person_Company (person_id, company_id, start_working) SELECT p.id, p.worksfor_company_id, '20070601' FROM Person p WHERE p.worksfor_company_id IS NOT NULL
+        </sql>
+    </changeSet>
+	
+    <changeSet id="9" author="your.name">
+	    <dropForeignKeyConstraint 
+            baseTableName="Person"
+            constraintName="fk_person_worksfor"/>  
+	
+        <dropColumn tableName="Person">  
+            <column name="worksfor_company_id"/>
+        </dropColumn>
+    </changeSet>
+</databaseChangeLog>

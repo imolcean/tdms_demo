@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.10.xsd">
+	
+	<changeSet id="3" author="your.name">
+        <dropColumn tableName="Person">  
+            <column name="address1"/>  
+            <column name="address2"/>  
+            <column name="city"/>  
+            <column name="country"/>  
+        </dropColumn>  
+
+        <dropColumn tableName="Company">  
+            <column name="address1"/>  
+            <column name="address2"/>  
+            <column name="city"/>
+        </dropColumn>  
+    </changeSet>
+    
+    <changeSet id="4" author="your.name">
+        <createTable tableName="Address">
+            <column name="id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="line1" type="varchar(50)"/>
+            <column name="line2" type="varchar(50)"/>
+            <column name="city" type="varchar(30)"/>
+            <column name="country" type="char(2)"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="5" author="your.name">
+        <addColumn tableName="Person">
+            <column name="address_id" type="int"/>
+        </addColumn>
+
+        <addColumn tableName="Company">
+            <column name="address_id" type="int"/>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="6" author="your.name">
+        <addForeignKeyConstraint
+            constraintName="fk_person_address"
+            baseTableName="Person"
+            baseColumnNames="address_id"
+            referencedTableName="Address"
+            referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint
+            constraintName="fk_company_address"
+            baseTableName="Company"
+            baseColumnNames="address_id"
+            referencedTableName="Address"
+            referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

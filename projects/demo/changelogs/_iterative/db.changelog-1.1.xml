@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd
+    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.10.xsd ">
+
+    <changeSet id="6" author="your.name">
+        <createTable tableName="address">
+            <column name="id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="line1" type="varchar(50)"/>
+            <column name="line2" type="varchar(50)"/>
+            <column name="city" type="varchar(30)"/>
+            <column name="country" type="varchar(2)"/>
+        </createTable>
+        
+        <sql>
+            INSERT INTO address (id, line1, line2, city, country) SELECT p.id, p.address1, p.address2, p.city, p.country as country FROM person p UNION SELECT (SELECT MAX(id) FROM person) + c.id, c.address1, c.address2, c.city, NULL as country FROM company c ORDER BY id
+        </sql>
+    </changeSet>
+    
+    <changeSet id="7" author="your.name">
+        <addColumn tableName="company">
+            <column name="address_id" type="int"/>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="8" author="your.name">
+        <addColumn tableName="person">
+            <column name="address_id" type="int"/>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="9" author="your.name">
+        <addForeignKeyConstraint
+            constraintName="fk_company_address"
+            baseTableName="company"
+            baseColumnNames="address_id"
+            referencedTableName="address"
+            referencedColumnNames="id"/>
+        
+        <sql>
+            UPDATE company SET address_id = map.address_id FROM ( SELECT id as company_id, address_id FROM ( SELECT c.id, a.id as address_id FROM company c, address a, person p GROUP BY a.id, c.id HAVING a.id = MAX(p.id) + c.id ) AS subquerry ) AS map WHERE id = map.company_id
+        </sql>
+    </changeSet>
+    
+    <changeSet id="10" author="your.name">
+        <addForeignKeyConstraint
+            constraintName="fk_person_address"
+            baseTableName="person"
+            baseColumnNames="address_id"
+            referencedTableName="address"
+            referencedColumnNames="id"/>
+        
+        <sql>
+            UPDATE person SET address_id = map.address_id FROM ( SELECT id as person_id, address_id FROM ( SELECT p.id, p.name, p.worksfor_company_id, a.id as address_id FROM person p, address a WHERE p.address1 = a.line1 AND p.address2 = a.line2 AND p.city = a.city AND p.country = a.country ) AS subquerry ) AS map WHERE id = map.person_id
+
+        </sql>
+    </changeSet>
+    
+    <changeSet id="11" author="your.name">
+        <dropColumn tableName="company">  
+            <column name="address1"/>  
+            <column name="address2"/>  
+            <column name="city"/>
+        </dropColumn>
+    </changeSet>
+    
+    <changeSet id="12" author="your.name">
+        <dropColumn tableName="person">  
+            <column name="address1"/>  
+            <column name="address2"/>  
+            <column name="city"/>  
+            <column name="country"/>  
+        </dropColumn>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,30 @@
+{
+  "projectName": "Demo",
+
+  "internal": {
+    "driverClassName": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+    "url": "jdbc:sqlserver://localhost:1434",
+    "database": "DABAG_IGORDAT06",
+    "username": "DABAG_DEV",
+    "password": "DABAG_DEV"
+  },
+
+  "tmp": {
+    "driverClassName": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+    "url": "jdbc:sqlserver://localhost:1434",
+    "database": "DABAG_IGORDAT06_TMP",
+    "username": "DABAG_DEV",
+    "password": "DABAG_DEV"
+  },
+  
+  "gitRepository": null,
+
+  "schemaUpdater": "io.github.imolcean.tdms.x.updaters.LiquibaseIterativeSchemaUpdater",
+  "dataImporter": "io.github.imolcean.tdms.x.importers.JsonDataImporter",
+  "dataExporter": "io.github.imolcean.tdms.x.exporters.JsonDataExporter",
+  "deployer": "io.github.imolcean.tdms.x.deployers.MigrationDeployer",
+  "dataGenerator": "io.github.imolcean.tdms.core.generation.RuleBasedDataGenerator",
+
+  "dataDir": "C:\\tdms\\projects\\demo\\data",
+  "schemaUpdateDescriptor": "C:\\tdms\\projects\\demo\\changelogs\\iterative\\db.changelog-master.xml"
+}
